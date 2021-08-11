@@ -3,7 +3,6 @@ module github.com/virtual-kubelet/node-cli
 go 1.12
 
 require (
-	github.com/gorilla/mux v1.7.3 // indirect
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.7.0
@@ -19,6 +18,8 @@ require (
 	k8s.io/klog v1.0.0
 	k8s.io/kubernetes v1.18.4
 )
+
+replace github.com/virtual-kubelet/virtual-kubelet => github.com/namix-io/virtual-kubelet v1.6.0
 
 replace k8s.io/legacy-cloud-providers => k8s.io/legacy-cloud-providers v0.21.3
 
