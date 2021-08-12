@@ -16,7 +16,6 @@ require (
 	k8s.io/apiserver v0.21.3
 	k8s.io/client-go v0.21.3
 	k8s.io/klog v1.0.0
-	k8s.io/kubernetes v1.18.4
 )
 
 replace github.com/virtual-kubelet/virtual-kubelet => github.com/namix-io/virtual-kubelet v1.6.0
