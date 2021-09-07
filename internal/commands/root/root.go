@@ -36,7 +36,7 @@ import (
 	kubeinformers "k8s.io/client-go/informers"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/kubernetes/scheme"
-	"k8s.io/client-go/kubernetes/typed/coordination/v1"
+	v1 "k8s.io/client-go/kubernetes/typed/coordination/v1"
 	corev1client "k8s.io/client-go/kubernetes/typed/core/v1"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
@@ -68,14 +68,19 @@ func applyDefaults(o *opts.Opts) {
 }
 
 func runRootCommand(ctx context.Context, s *provider.Store, c *opts.Opts) error {
+	var err error
+
 	pInit := s.Get(c.Provider)
 	if pInit == nil {
 		return errors.Errorf("provider %q not found", c.Provider)
 	}
 
-	client, err := newClient(c.KubeConfigPath, c.KubeAPIQPS, c.KubeAPIBurst)
-	if err != nil {
-		return err
+	client := c.KubernetesClient
+	if client == nil {
+		client, err = newClient(c.KubeConfigPath, c.KubeAPIQPS, c.KubeAPIBurst)
+		if err != nil {
+			return err
+		}
 	}
 
 	return runRootCommandWithProviderAndClient(ctx, pInit, client, c)

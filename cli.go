@@ -28,6 +28,7 @@ import (
 	"github.com/virtual-kubelet/node-cli/internal/commands/version"
 	"github.com/virtual-kubelet/node-cli/opts"
 	"github.com/virtual-kubelet/node-cli/provider"
+	"k8s.io/client-go/kubernetes"
 )
 
 // Option sets an option on the command.
@@ -120,6 +121,12 @@ func WithKubernetesNodeVersion(v string) Option {
 func WithPersistentPreRunCallback(f func() error) Option {
 	return func(c *Command) {
 		c.persistentPreRunCb = append(c.persistentPreRunCb, f)
+	}
+}
+
+func WithKubernetesClient(client kubernetes.Interface) Option {
+	return func(c *Command) {
+		c.opts.KubernetesClient = client
 	}
 }
 

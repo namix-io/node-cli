@@ -23,6 +23,7 @@ import (
 	"github.com/mitchellh/go-homedir"
 	"github.com/pkg/errors"
 	corev1 "k8s.io/api/core/v1"
+	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/util/workqueue"
 )
 
@@ -55,6 +56,10 @@ type Opts struct {
 	KubeNamespace string
 	// Domain suffix to append to search domains for the pods created by virtual-kubelet
 	KubeClusterDomain string
+
+	// KubernetesClient if not nil will be used as the client to talk to the api-server
+	// otherwise, will try to create a client from defaults
+	KubernetesClient kubernetes.Interface
 
 	// Sets the port to listen for requests from the Kubernetes API server
 	ListenPort int32
